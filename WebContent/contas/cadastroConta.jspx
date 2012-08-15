@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<head>
+<title>Cadastro de conta</title>
+<link rel="stylesheet" type="text/css" href="../css/estilo.css" />
+</head>
+<body>
+	<f:view>
+		<div style="width: 900px; margin: 80px auto;">
+			<h:form id="frm">
+				<h1>
+					<h:outputText value="Cadastro de conta" />
+				</h1>
+				<h:messages layout="table" showSummary="true" showDetail="false"
+					globalOnly="true" styleClass="msgErro" infoClass="msgInfo"
+					style="font-weight: bold;" />
+				<rich:panel
+					header="Cadastro de contas à Pagar  e/ou contas à Receber">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Código:"
+							rendered="#{cadastroContaBean.contaEdicao.id != null }" />
+						<h:panelGroup
+							rendered="#{cadastroContaBean.contaEdicao.id != null}">
+							<h:inputText id="codigo" size="10"
+								value="#{cadastroContaBean.contaEdicao.id}"
+								label="Código da conta" disabled="true" />
+							<h:message for="codigo" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+						<h:outputLabel value="Pessoa:" />
+						<h:panelGroup>
+							<h:selectOneMenu id="pessoa"
+								value="#{cadastroContaBean.contaEdicao.pessoa}" label="Pessoa"
+								required="true">
+								<f:selectItems value="#{cadastroContaBean.pessoas}" />
+							</h:selectOneMenu>
+							<h:message for="pessoa" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+						<h:outputLabel value="Tipo:" />
+						<h:panelGroup>
+							<h:selectOneRadio id="tipo"
+								value="#{cadastroContaBean.contaEdicao.tipo}"
+								label="Tipo da conta" required="true">
+								<f:selectItems value="#{cadastroContaBean.tiposLancamentos}" />
+							</h:selectOneRadio>
+							<h:message for="tipo" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+
+						<h:outputLabel value="Descrição:" />
+						<h:panelGroup>
+							<h:inputText id="descricao" size="40" maxlength="150"
+								value="#{cadastroContaBean.contaEdicao.descricao}"
+								required="true" label="Descrição" />
+							<rich:suggestionbox for="descricao"
+								suggestionAction="#{cadastroContaBean.sugerirDescricao}"
+								width="230" height="120" var="item">
+								<h:column>
+									<h:outputText value="#{item}" />
+								</h:column>
+							</rich:suggestionbox>
+							<h:message for="descricao" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+						<h:outputLabel value="Valor:" />
+						<h:panelGroup>
+							<h:inputText id="valor" size="12" maxlength="10"
+								value="#{cadastroContaBean.contaEdicao.valor}" required="true"
+								label="Valor">
+								<f:convertNumber minFractionDigits="2" />
+							</h:inputText>
+							<h:message for="valor" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+						<h:outputLabel value="Data vencimento: " />
+						<h:panelGroup>
+							<rich:calendar id="dataVencimento" inputSize="12"
+								datePattern="dd/MM/yyyy" enableManualInput="false"
+								value="#{cadastroContaBean.contaEdicao.dataVencimento}"
+								required="true" label="Data Vencimento" />
+							<h:message for="dataVencimento" showSummary="true"
+								showDetail="false" styleClass="msgErro" />
+						</h:panelGroup>
+						<h:outputLabel value="Data baixa:" />
+						<h:panelGroup>
+							<rich:calendar id="dataBaixa" inputSize="12"
+								datePattern="dd/MM/yyyy" enableManualInput="false"
+								value="#{cadastroContaBean.contaEdicao.dataBaixa}"
+								label="Data Baixa" />
+							<h:message for="dataBaixa" showSummary="true" showDetail="false"
+								styleClass="msgErro" />
+						</h:panelGroup>
+						<h:panelGroup />
+
+						<h:outputText />
+						<h:outputText />
+						<h:panelGroup>
+							<a4j:commandButton value="Salvar"
+								actionListener="#{cadastroContaBean.salvar}" reRender="frm"
+								type="submit" />
+							<h:commandButton value="Cancelar" type="reset" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</rich:panel>
+				<h:panelGroup>
+					<div align="right">
+						<h:commandButton value="Voltar" action="menu" immediate="true" />
+					</div>
+				</h:panelGroup>
+			</h:form>
+		</div>
+	</f:view>
+</body>
+</html>

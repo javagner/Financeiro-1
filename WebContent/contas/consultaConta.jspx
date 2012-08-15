@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<head>
+<title>Consulta de contas</title>
+<link rel="stylesheet" type="text/css" href="../css/estilo.css" />
+</head>
+<body>
+	<f:view>
+		<div style="width: 900px; margin: 80px auto;">
+			<h:form id="frm">
+				<h1>
+					<h:outputText value="Consulta de contas" />
+				</h1>
+				<h:messages layout="table" showSummary="true" showDetail="false"
+					globalOnly="true" styleClass="msgErro" infoClass="msgInfo"
+					style="font-weight: bold" />
+				<rich:panel
+					header="Relação de Contas Cadastradas no Gerenciador Financeiro">
+					<rich:dataTable value="#{consultaContaBean.contas}" var="item"
+						width="100%" id="contas" rows="10">
+						<rich:column sortBy="#{item.tipo}" width="20px"
+							style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="Tipo" />
+							</f:facet>
+							<h:graphicImage value="/imagens/receita.png"
+								title="Conta a receber" rendered="#{item.tipo eq 'RECEITA'}" />
+							<h:graphicImage value="/imagens/despesa.png"
+								title="Conta a pagar" rendered="#{item.tipo eq 'DESPESA'}" />
+						</rich:column>
+						<rich:column sortBy="#{item.pessoa.nome}" width="200px">
+							<f:facet name="header">
+								<h:outputText value="Pessoa" />
+							</f:facet>
+							<h:outputText value="#{item.pessoa.nome}" />
+						</rich:column>
+						<rich:column sortBy="#{item.descricao}">
+							<f:facet name="header">
+								<h:outputText value="Descrição" />
+							</f:facet>
+							<h:outputText value="#{item.descricao}" />
+						</rich:column>
+						<rich:column sortBy="#{item.valor}" width="100px"
+							style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="Valor" />
+							</f:facet>
+							<h:outputText value="#{item.valor}"
+								style="color: #{item.tipo eq 'RECEITA' ? 'blue' : 'red'}">
+								<f:convertNumber minFractionDigits="2" currencyCode="BRL"
+									type="currency" />
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{item.dataVencimento}" width="100px"
+							style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="Vencimento" />
+							</f:facet>
+							<h:outputText value="#{item.dataVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</rich:column>
+						<rich:column width="80px" style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="Aberta" />
+							</f:facet>
+							<h:outputText value="#{item.dataBaixa == null ? 'Sim' : 'Não'}" />
+						</rich:column>
+						<rich:column width="40px" style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="Ações" />
+							</f:facet>
+							<h:commandLink action="#{consultaContaBean.excluir}">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{consultaContaBean.contaExclusao}" />
+								<h:graphicImage value="/imagens/excluir.png" title="Excluir"
+									styleClass="imagemLink" />
+							</h:commandLink>
+							<h:commandLink action="cadastroConta">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{cadastroContaBean.contaEdicao}" />
+								<h:graphicImage value="/imagens/editar.png" title="Editar"
+									styleClass="imagemLink" />
+							</h:commandLink>
+						</rich:column>
+					</rich:dataTable>
+					<rich:datascroller for="contas" maxPages="20" align="left" />
+				</rich:panel>
+				<div align="right">
+					<h:commandButton value="Voltar" action="menu" immediate="true" />
+				</div>
+			</h:form>
+		</div>
+	</f:view>
+</body>
+</html>

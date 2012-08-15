@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	version="1.2">
+
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<message-bundle>com.algaworks.dwjsf.financeiro.recursos.messages</message-bundle>
+	</application>
+
+	<managed-bean>
+		<managed-bean-name>cadastroContaBean</managed-bean-name>
+		<managed-bean-class>com.algaworks.dwjsf.financeiro.visao.CadastroContaBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>consultaContaBean</managed-bean-name>
+		<managed-bean-class>com.algaworks.dwjsf.financeiro.visao.ConsultaContaBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>cadastroPessoaBean</managed-bean-name>
+		<managed-bean-class>com.algaworks.dwjsf.financeiro.visao.CadastroPessoaBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>helloRichBean</managed-bean-name>
+		<managed-bean-class>com.algaworks.dwjsf.financeiro.visao.HelloRichBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>cadastroConta</from-outcome>
+			<to-view-id>/contas/cadastroConta.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>consultaConta</from-outcome>
+			<to-view-id>/contas/consultaConta.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cadastroPessoa</from-outcome>
+			<to-view-id>/contas/cadastroPessoa.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>menu</from-outcome>
+			<to-view-id>/menu.jspx</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<converter>
+		<converter-for-class>java.lang.Enum</converter-for-class>
+		<converter-class>com.algaworks.dwjsf.financeiro.conversores.EnumConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>com.algaworks.dwjsf.financeiro.dominio.Pessoa</converter-for-class>
+		<converter-class>com.algaworks.dwjsf.financeiro.conversores.PessoaConverter</converter-class>
+	</converter>
+
+	<application>
+		<view-handler>org.ajax4jsf.application.AjaxViewHandler</view-handler>
+	</application>
+</faces-config>

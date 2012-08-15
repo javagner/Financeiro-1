@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<head>
+<title>Sistema Financeiro</title>
+<link rel="stylesheet" type="text/css" href="../css/estilo.css" />
+	</head>
+	<body>
+		<f:view>
+				<div style="width: 900px; margin: 80px auto;">
+					<h:form id="frm">
+						<h1>
+							<h:outputText value="Sistema Financeiro" />
+						</h1>
+						<h:commandLink action="#{cadastroPessoaBean.inicializar}">
+							<h:outputText value="Cadastro de Pessoas" />
+						</h:commandLink>
+						<br />
+						<h:commandLink action="#{cadastroContaBean.inicializar}">
+							<h:outputText value="Cadastro de contas"></h:outputText>
+						</h:commandLink>
+						<br />
+						<h:commandLink action="consultaConta"
+							actionListener="#{consultaContaBean.consultar}">
+							<h:outputText value="Consulta de contas" />
+						</h:commandLink>
+
+					</h:form>
+				</div>
+		</f:view>
+	</body>
+</html>
